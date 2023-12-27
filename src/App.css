@@ -1,38 +1,169 @@
-.App {
+
+.background-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  backdrop-filter: blur(10px); 
+}
+
+.popup-container {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(252, 251, 251);
+ 
+  border-radius: 0px;
+  padding: 50px;
+  max-width: 900px;
+  width: 90%;
   text-align: center;
+  z-index: 2;
+  height: 60vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* ... Otros estilos ... */
+
+/* Modifica el .popup-container para que esté centrado y con un fondo oscuro cuando esté abierto */
+
+.popup-container.active {
+  display: block;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.background-overlay.active {
+  display: block;
+}
+/* Agrega estas reglas al final de tu archivo CSS */
+
+.active {
+  display: block;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.popup-container2 {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(66, 98, 69);
+  border: 0.1px solid rgb(1, 1, 1);
+  border-radius: 0px;
+  padding: 50px;
+  max-width: 600px;
+  width: 90%;
+  text-align: center;
+  z-index: 2;
+}
+
+.popup-container2 h2 {
+  color: #fff;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+ form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+ .form-group {
+  margin-bottom: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+ label {
+  color: #fff;
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+ input {
+  width: 70%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: rgb(159, 42, 42);
+}
+
+.btnn {
+  width: 80%;
+  padding: 10px;
+  background-color: #1b8d8d;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: 0.5s;
+  position: relative;
+  left: 9%;
+}
+.btnn:hover{
+  background-color: #b6b6b6;
+  color: #000000;
+}
+.InputsContainer{
+  
+  width: 60%;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 80%;
+  padding: 5px;
+  margin-bottom: 15px;
+  border: none; /* Elimina el borde por completo */
+  border-bottom: 1px solid #000000; /* Aplica solo la línea en la parte inferior */
+  border-radius: 0px;
+  filter: opacity(70%);
+  color: rgb(159, 42, 42);
+}
+.login-content {
+  z-index: 100;
+  height: 120%;
+  background-color: white; /* Fondo blanco */
+  padding: 20px; /* Espaciado interno para mayor claridad */
+  border-radius: 8px; /* Bordes redondeados para un aspecto más suave */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave para destacar */
+}
+.titleLogion {
+  color: #909090;
+  /* font-size:17px; */
+ 
+}
+.usernameText{
+  padding: 15px;
+  color: #909090;
+  position: relative;
+  left: -33%;
+  font-size: 13px;
+}
+.RememberMeText{
+  text-decoration: none;
+  color: #909090;
+  position: relative;
+  top: -15px;
+  left: -31%;
+  font-size: 14px;
+  padding: 10px;
+  transition: 0.3s;
+}
+.RememberMeText:hover{
+  color: #000000;
+  transition: 0.3s;
+}
+.titleLoguin{
+  color: rgb(56, 131, 131);
+  font-size: 15px;
+  position: relative;
+padding: 10px;
+  top: -30px;
+
+  width: 100px;
+  height: 30px;
 }
