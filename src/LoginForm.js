@@ -8,7 +8,7 @@ function LoginForm({ onClosePopup }) {
   const [Username, setUsername] = useState('');
   const [Password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { login } = useAuth(); // Asegúrate de utilizar la función login desde el contexto
+  const { login } = useAuth(); 
   const [token, setToken] = useState(null);
   const [tokenValidationesult, setTokenValidationResult] = useState(false); 
   const [showLoginForm, setShowLoginForm] = useState(true);
@@ -47,7 +47,6 @@ function LoginForm({ onClosePopup }) {
 
       if (response.ok) {
         const { token } = await response.json();
-        // Actualiza el estado de autenticación
         login();
         setToken(token);
       } else {
@@ -78,9 +77,7 @@ function LoginForm({ onClosePopup }) {
         setTokenValidationResult(result);
 
         if (result) {
-          // Ocultar completamente el formulario
-          setShowLoginForm(false);  // <-- Cambia a false
-          // Navegar a la ruta /Home
+          setShowLoginForm(false); 
           navigate('/Home');
         }
       } else {
