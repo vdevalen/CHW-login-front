@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import HolaMundo from './HolaMundo';
+import Home from './Home';
 import ImhLogin from "../src/img/Form 1.png"
 
 function LoginForm({ onClosePopup }) {
@@ -76,8 +76,8 @@ function LoginForm({ onClosePopup }) {
         if (result) {
           // Ocultar completamente el formulario
           setShowLoginForm(true);
-          // Navegar a la ruta /HolaMundo
-          navigate('/HolaMundo');
+          // Navegar a la ruta /Home
+          navigate('/Home');
         }
       } else {
         setShowLoginForm(false);
@@ -157,7 +157,7 @@ function LoginForm({ onClosePopup }) {
       </div>
       ) : (
         
-        <HolaMundo />
+        <Home />
       )}
     </div>
   );

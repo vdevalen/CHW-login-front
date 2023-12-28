@@ -1,16 +1,16 @@
 import React from 'react';
 import './App.css';
 
-function HolaMundo() {
+function Home() {
   return (
       <div className='main'>
         <div className='generalContent'>
           <div className='loginCont'>
-            <h1>HOLA MUNDO</h1>
+            <h1>Entre al Home</h1>
           </div>  
         </div>
       </div>
   );
 }
 
-export default  HolaMundo ; 
+export default  Home ; 
