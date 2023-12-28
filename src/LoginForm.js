@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Home from './Home';
-import ImhLogin from "../src/img/Form 1.png"
+import { useAuth } from './AuthContext';
+import ImhLogin from "../src/img/Form 1.png";
 
 function LoginForm({ onClosePopup }) {
   const [Username, setUsername] = useState('');
   const [Password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const { login } = useAuth(); // Asegúrate de utilizar la función login desde el contexto
   const [token, setToken] = useState(null);
-  const [tokenValidationResult, setTokenValidationResult] = useState(false);
+  const [tokenValidationesult, setTokenValidationResult] = useState(false); 
   const [showLoginForm, setShowLoginForm] = useState(true);
   const navigate = useNavigate();
 
@@ -16,6 +18,7 @@ function LoginForm({ onClosePopup }) {
     if (token) {
       validateToken(token);
     }
+  // eslint-disable-next-line 
   }, [token]);
 
   const handleSubmit = async (e) => {
@@ -41,10 +44,11 @@ function LoginForm({ onClosePopup }) {
         },
         body: JSON.stringify({ Username, Password }),
       });
-      
 
       if (response.ok) {
         const { token } = await response.json();
+        // Actualiza el estado de autenticación
+        login();
         setToken(token);
       } else {
         mostrarError();
@@ -75,7 +79,7 @@ function LoginForm({ onClosePopup }) {
 
         if (result) {
           // Ocultar completamente el formulario
-          setShowLoginForm(true);
+          setShowLoginForm(false);  // <-- Cambia a false
           // Navegar a la ruta /Home
           navigate('/Home');
         }
@@ -105,58 +109,57 @@ function LoginForm({ onClosePopup }) {
     <div>
       {showLoginForm ? (
         <div className={`popup-container ${showLoginForm ? 'active' : ''}`}>
-        <div className="login-content">
-          <div className='InputsContainer'>
-            <div>
-              <h3 className='titleLogin'>LOGIN</h3>
+          <div className="login-content">
+            <div className='InputsContainer'>
+              <div>
+                <h3 className='titleLogin'>LOGIN</h3>
+              </div>
+              <h3 className='titleLogion'>Enter your email and password below to sign in.</h3>
+              <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                  <label className='usernameText' htmlFor="username">
+                    Username
+                  </label>
+                  <input
+                    placeholder='Type your username'
+                    type="text"
+                    id="username"
+                    name="username"
+                    value={Username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                </div>
+                <div className="form-group">
+                  <label className="usernameText" htmlFor="password">
+                    Password
+                  </label>
+                  <input
+                    placeholder='Type your password'
+                    type="password"
+                    id="password"
+                    name="password"
+                    value={Password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+                <button className="btnn">
+                  INICIAR
+                </button>
+                <div id='imgLoginCond'>
+                  <img id='imgLogin' src={ImhLogin} alt="" />
+                </div>
+              </form>
             </div>
-            <h3 className='titleLogion'>Enter your email and password below to sign in.</h3>
-            <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label className='usernameText' htmlFor="username">
-                  Username
-                </label>
-                <input
-                  placeholder='Type your username'
-                  type="text"
-                  id="username"
-                  name="username"
-                  value={Username}
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-              </div>
-              <div className="form-group">
-                <label className="usernameText" htmlFor="password">
-                  Password
-                </label>
-                <input
-                  placeholder='Type your password'
-                  type="password"
-                  id="password"
-                  name="password"
-                  value={Password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <button className="btnn" >
-                INICIAR
-              </button>
-              <div id='imgLoginCond'> 
-              <img id='imgLogin' src={ImhLogin} alt="" />
-              </div>
-            </form>
           </div>
+          {error && (
+            <div className="alert-overlay">
+              <div className="alert alert-danger" role="alert">
+                {error}
+              </div>
+            </div>
+          )}
         </div>
-        {error && (
-          <div className="alert-overlay">
-            <div className="alert alert-danger" role="alert">
-              {error}
-            </div>
-          </div>
-        )}
-      </div>
       ) : (
-        
         <Home />
       )}
     </div>
