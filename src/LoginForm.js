@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import HolaMundo from './HolaMundo';
+import ImhLogin from "../src/img/Form 1.png"
 
 function LoginForm({ onClosePopup }) {
   const [Username, setUsername] = useState('');
@@ -93,7 +94,7 @@ function LoginForm({ onClosePopup }) {
     setError(mensaje);
     setTimeout(() => {
       setError('');
-    }, 6000);
+    }, 9000);
   };
 
   const isValidEmail = (email) => {
@@ -140,6 +141,9 @@ function LoginForm({ onClosePopup }) {
               <button className="btnn" >
                 INICIAR
               </button>
+              <div id='imgLoginCond'> 
+              <img id='imgLogin' src={ImhLogin} alt="" />
+              </div>
             </form>
           </div>
         </div>
