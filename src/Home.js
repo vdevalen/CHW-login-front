@@ -6,7 +6,7 @@ function Home() {
       <div className='main'>
         <div className='generalContent'>
           <div className='loginCont'>
-            <h1>Entre al Home</h1>
+            <h1>Hello world!!</h1>
           </div>  
         </div>
       </div>

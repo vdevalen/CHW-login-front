@@ -1,25 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Home from './Home';
-import { useAuth } from './AuthContext';
 import ImhLogin from "../src/img/Form 1.png";
 
-function LoginForm({ onClosePopup }) {
+function LoginForm() {
   const [Username, setUsername] = useState('');
   const [Password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { login } = useAuth(); 
-  const [token, setToken] = useState(null);
-  const [tokenValidationesult, setTokenValidationResult] = useState(false); 
   const [showLoginForm, setShowLoginForm] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (token) {
-      validateToken(token);
-    }
-  // eslint-disable-next-line 
-  }, [token]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,22 +26,15 @@ function LoginForm({ onClosePopup }) {
 
     try {
       const basicAuthString = btoa(`${Username}:${Password}`);
-      const response = await fetch('http://localhost:3000/login', {
+      await fetch('http://localhost:3000/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Basic ${basicAuthString}`,
         },
-        body: JSON.stringify({ Username, Password }),
-      });
-
-      if (response.ok) {
-        const { token } = await response.json();
-        login();
-        setToken(token);
-      } else {
-        mostrarError();
-      }
+      })
+      .then(response => response.json())
+      .then(json => validateToken(json.message.token));
     } catch (error) {
       console.error('Error al hacer la solicitud CHW:', error);
       mostrarError('Error de conexión CHW');
@@ -60,34 +43,18 @@ function LoginForm({ onClosePopup }) {
 
   const validateToken = async (token) => {
     try {
-      const response = await fetch('http://localhost:3000/validate-token', {
-        method: 'POST',
+      await fetch('http://localhost:3000/hello-world', {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
-          'System': 'Security',
-          'Module': 'Authenticate',
-          'Controller': 'Authenticate',
-          'Action': 'Validate',
         },
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        setTokenValidationResult(result);
-
-        if (result) {
-          setShowLoginForm(false); 
-          navigate('/Home');
-        }
-      } else {
-        setShowLoginForm(false);
-        console.error('Error al validar el token:', response.statusText);
-        setTokenValidationResult({ success: false, message: 'Token validation failed' });
-      }
+      }).then(response => response.json())
+      setShowLoginForm(false); 
+      navigate('/Home');
     } catch (error) {
       console.error('Error al hacer la solicitud de validación de token:', error);
-      setTokenValidationResult({ success: false, message: 'Error de conexión en la validación de token CHW' });
+      // setTokenValidationResult({ success: false, message: 'Error de conexión en la validación de token CHW' });
     }
   };
 
